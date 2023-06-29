@@ -5,14 +5,12 @@
     <!-- Basic -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-eval' https://*.optimizely.com https://optimizely.s3.amazonaws.com https://cdn-assets-prod.s3.amazonaws.com https://christopher-gustavson.github.io/; img-src https://*; child-src 'none';"
-    /> -->
     <meta http-equiv="Content-Security-Policy" content="
     frame-src https://a20870890027.cdn.optimizely.com https://a20870890027.cdn-pci.optimizely.com;
-    script-src 'unsafe-eval' https://*.optimizely.com https://optimizely.s3.amazonaws.com https://cdn-assets-prod.s3.amazonaws.com https://christopher-gustavson.github.io/;
+    script-src 'self' https://*.optimizely.com https://optimizely.s3.amazonaws.com https://cdn-assets-prod.s3.amazonaws.com https://christopher-gustavson.github.io/;
     connect-src https://logx.optimizely.com https://*.optimizely.com; 
     img-src 'self' https://cdn.optimizely.com;
-    style-src 'unsafe-inline' https://christopher-gustavson.github.io/;" />
+    style-src 'unsafe-inline' https://christopher-gustavson.github.io/ https://fonts.googleapis.com/;" />
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Site Metas -->
@@ -21,9 +19,6 @@
     <meta name="author" content="" />
 
     <title>CSP Test</title>
-
-    <!-- slider stylesheet -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
