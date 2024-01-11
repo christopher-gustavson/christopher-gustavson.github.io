@@ -1,525 +1,239 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+
+<html>
 
 <head>
-    <!-- Basic -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KPXV6HV6');
+    </script>
+    <!-- End Google Tag Manager -->
+    <title>Company</title>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="Content-Security-Policy" content="
-    frame-src https://a20870890027.cdn.optimizely.com https://a20870890027.cdn-pci.optimizely.com;
-    script-src 'self' https://*.optimizely.com https://optimizelyedit.com https://optimizely.s3.amazonaws.com https://cdn-assets-prod.s3.amazonaws.com https://christopher-gustavson.github.io;
-    connect-src https://logx.optimizely.com https://*.optimizely.com; 
-    img-src 'self' https://cdn.optimizely.com;
-    style-src 'self' https://christopher-gustavson.github.io https://fonts.googleapis.com;" />
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <link href="https://fonts.googleapis.com/css?family=Convergence|Oleo+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://unpkg.com/@optimizely/optimizely-sdk/dist/optimizely.browser.umd.min.js"></script>
+    <script src="https://cdn.optimizely.com/js/9874509362.js"></script>
+    <script>
+        ! function() {
+            var analytics = window.analytics = window.analytics || [];
+            if (!analytics.initialize)
+                if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice.");
+                else {
+                    analytics.invoked = !0;
+                    analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"];
+                    analytics.factory = function(e) {
+                        return function() {
+                            var t = Array.prototype.slice.call(arguments);
+                            t.unshift(e);
+                            analytics.push(t);
+                            return analytics
+                        }
+                    };
+                    for (var e = 0; e < analytics.methods.length; e++) {
+                        var key = analytics.methods[e];
+                        analytics[key] = analytics.factory(key)
+                    }
+                    analytics.load = function(key, e) {
+                        var t = document.createElement("script");
+                        t.type = "text/javascript";
+                        t.async = !0;
+                        t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";
+                        var n = document.getElementsByTagName("script")[0];
+                        n.parentNode.insertBefore(t, n);
+                        analytics._loadOptions = e
+                    };
+                    analytics._writeKey = "SXwf6QOfDBPAGnEBLLXJ7FAqKPsaxxjB";;
+                    analytics.SNIPPET_VERSION = "4.15.3";
+                    analytics.load("SXwf6QOfDBPAGnEBLLXJ7FAqKPsaxxjB");
+                    analytics.page();
+                }
+        }();
+    </script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
 
-    <title>CSP Test</title>
+        var maskTimeout = parseInt(urlParams.get('timeout')),
+            hideElementSelectors = ['body > header > h1', '.text-nav'],
+            syncChangesApplied = false,
+            override = urlParams.get('override');
 
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        /**
+         * Manages CSSStyleSheet actions
+         * Handles adding and removing rules from our "masking" sheet
+         */
+        var cssRuleManager = {
+            sheet: (function() {
+                // https://davidwalsh.name/add-rules-stylesheets
+                var style = document.createElement("style");
+                style.appendChild(document.createTextNode(""));
+                document.head.appendChild(style);
+                return style.sheet;
+            })(),
+            addCSSRule: function(selector, rules) {
+                if ("insertRule" in this.sheet) {
+                    this.sheet.insertRule(selector + "{" + rules + "}", 0);
+                } else if ("addRule" in this.sheet) {
+                    this.sheet.addRule(selector, rules, 0);
+                }
+            }
+        }
 
-    <!-- Custom styles for this template -->
-    <link href=" css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
-    <script src="https://cdn.optimizely.com/js/20870890027.js"></script>
+        /**
+         * Fired in the first call of Optimizely `action.applied`
+         * Disables "masking" stylesheet
+         */
+        var removeMask = function() {
+            // its adequate to remove mask class once on the first sync change
+            if (syncChangesApplied) return;
+            cssRuleManager.sheet.disabled = true;
+            syncChangesApplied = true;
+        }
+
+        /**
+         * Creates all CSSRules based on supplied list of selectors to hide
+         * Binds Optimizely `action.applied` to unhide nodes by removing CSSRules
+         */
+        hideElementSelectors.forEach(function(selector) {
+            cssRuleManager.addCSSRule(selector, 'visibility:hidden');
+        });
+
+        /**
+         * Listen for first sync change applied
+         * and unmask nodes
+         */
+        window.optimizely = window.optimizely || [];
+        window.optimizely.push({
+            type: "addListener",
+            filter: {
+                type: "lifecycle",
+                name: "campaignDecided"
+            },
+            "handler": removeMask
+        });
+
+        setTimeout(removeMask, maskTimeout);
+
+        const userId = urlParams.get('userId')
+        const sdkKey = urlParams.get('sdkKey')
+        const attributes = {
+            tier: urlParams.get('tier')
+        };
+        //	const optimizelyOptions = optimizelySdk.OptimizelyDecideOption;
+
+        window.optimizelySdk = optimizelySdk;
+
+        optimizelySdk.setLogger(optimizelySdk.logging.createLogger());
+        optimizelySdk.setLogLevel(optimizelySdk.enums.LOG_LEVEL.DEBUG);
+
+        // PiRA8qU33qXi5aCoT7yH6
+        // https://robisatthefunction.github.io/mockWebsite/?sdkKey=JtG4rUnwTxcpXCVNFND9W
+
+        const optimizelyClient = optimizelySdk.createInstance({
+            sdkKey: sdkKey
+        })
+
+        optimizelyClient.onReady().then(result => {
+            window.optimizelyClient = optimizelyClient
+
+            const onDecision = ({
+                decisionType,
+                userId,
+                attributes,
+                decisionInfo
+            }) => {
+                if (decisionInfo['decisionEventDispatched']) {
+                    window.dataLayer = window.dataLayer || [];
+                    dataLayer.push({
+                        'event': 'optimizely-decision',
+                        'optimizely-flagKey': decisionInfo.flagKey,
+                        'optimizely-ruleKey': decisionInfo.ruleKey,
+                        'optimizely-variationKey': decisionInfo.variationKey,
+                    });
+                }
+            }
+
+            const notificationId = optimizelyClient.notificationCenter.addNotificationListener(optimizelySdk.enums.NOTIFICATION_TYPES.DECISION, onDecision);
+            //console.log('reason', result.reason);
+
+            //	var config = optimizelyClient.getOptimizelyConfig();
+
+            //	var decisionEvent = (config['featuresMap']['example']['variablesMap']['disable_decision_event'].value == 'true') ? optimizelyOptions.DISABLE_DECISION_EVENT : null;
+
+            //var user = optimizelyClient.createUserContext(userId, attributes);
+            //var decision = user.decide('example', [decisionEvent]);
+
+            //	if (decision['enabled']){
+            //		document.querySelector('head > link:nth-child(12)').setAttribute('href', 'css/main2.css');
+            //		document.querySelector('#content > section > div.work.nav.col-md-6 > h2 > span').innerText = decision['variables'].brand_messaging;
+            //	}
+
+            document.querySelectorAll('.text-nav').forEach(item => {
+                item.addEventListener('click', event => {
+                    optimizelyClient.track('click', userId);
+                })
+            });
+            //		window.decision = decision;
+            window.config = config;
+        });
+    </script>
+
+
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
-    <div class="hero_area">
-        <!-- header section strats -->
-        <header class="header_section">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg custom_nav-container d-block">
-                    <div class="main_nav_menu">
-                        <div class="fk_width">
-                            <div class="custom_menu-btn">
-                                <button onclick="openNav()">
-                  <span class="s-1"> </span>
-                  <span class="s-2"> </span>
-                  <span class="s-3"> </span>
-                </button>
-                            </div>
-                            <div id="myNav" class="overlay">
-                                <div class="overlay-content">
-                                    <a class="" href="index.html">Home <span class="sr-only">(current)</span></a>
-                                    <a class="" href="about.html">About </a>
-                                    <a class="" href="gallery.html">Gallery </a>
-                                    <a class="" href="blog.html">Blog </a>
-                                    <a class="" href="testimonial.html">Testimonial </a>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="navbar-brand" href="index.html">
-                            <span>
-                CSP Test
-              </span>
-                        </a>
-                        <div class="user_option">
-                            <a href="#">
-                login
-              </a>
-                            <form class="form-inline ">
-                                <button class="btn  nav_search-btn" type="submit"></button>
-                            </form>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
-        <!-- end header section -->
-
-        <!-- slider section -->
-        <section class=" slider_section position-relative">
-            <div class="container-fluid">
-                <div class="row slider-row">
-                    <div class="col-lg-3 offset-lg-1">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="detail-box">
-                                        <h1>
-                                            Pic <br /> Studio
-                                        </h1>
-                                        <p>
-                                            It is a long established fact that a reader will be distracted by the readable content of a page
-                                        </p>
-                                        <div>
-                                            <a href="#">
-                                              Request A Quote
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="hero-img" class="col-lg-8 px-0">
-                        <div class="img-box">
-                            <img src="images/slider-img.png" alt="" />
-                        </div>
-                    </div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KPXV6HV6"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header class="sticky-header">
+        <h1>Company Name</h1>
+    </header>
+    <div id="body">
+        <div id="content">
+            <section>
+                <div class="work nav col-md-6">
+                    <h2 class="text-nav"><span style="font-size:20px">CTA</span></h2>
                 </div>
-            </div>
-        </section>
-        <!-- end slider section -->
+                <div class="contact nav col-md-6">
+                    <h2 class="text-nav"><span style="font-size:20px">CTA</span></h2>
+                </div>
+                <div class="about nav col-md-6">
+                    <h2 class="text-nav"><span style="font-size:20px">CTA</span></h2>
+                </div>
+                <div class="careers nav col-md-6">
+                    <h2 class="text-nav"><span style="font-size:20px">CTA</span></h2>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+
+        </footer>
+
     </div>
 
-    <!-- about section -->
 
-    <section class="about_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="detail-box">
-                        <div class="heading_container">
-                            <h2>
-                                About Studio
-                            </h2>
-                            <p>
-                                It is a long established fact that a reader will be distracted by the readable content of a page
-                            </p>
-                            <a href="">
-                Read More
-              </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="img-box">
-            <div class="play_btn">
-                <a href="#">
-                    <img src="images/play.png" alt="" />
-                </a>
-            </div>
-            <img src="images/about-img.png" class="about-img" alt="" />
-        </div>
-    </section>
-
-    <!-- end about section -->
-
-    <!-- gallery section -->
-    <section class="gallery_section layout_padding-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 ml-auto">
-                    <div class="heading_container">
-                        <h2>
-                            Our Gallery
-                        </h2>
-                        <p>
-                            It is a long established fact that a reader will be distracted by the readable content of a page
-                        </p>
-                        <a href="">
-              See More
-            </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="gallery_container">
-            <div class="gallery_bg">
-                <img src="images/gallery-bg.png" alt="" />
-            </div>
-            <div class="container">
-                <div class="gallery_box">
-                    <div class="box b1">
-                        <div class="img-box">
-                            <img src="images/gallery-1.jpg" alt="" />
-                            <h5>
-                                photography
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="box b2">
-                        <div class="img-box">
-                            <img src="images/gallery-2.jpg" alt="" />
-                            <h5>
-                                photography
-                            </h5>
-                        </div>
-                        <div class="img-box">
-                            <img src="images/gallery-3.jpg" alt="" />
-                            <h5>
-                                photography
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="box b3">
-                        <div class="img-box">
-                            <img src="images/gallery-4.jpg" alt="" />
-                            <h5>
-                                photography
-                            </h5>
-                        </div>
-                        <div class="img-box">
-                            <img src="images/gallery-5.jpg" alt="" />
-                            <h5>
-                                photography
-                            </h5>
-                        </div>
-                    </div>
-                    <div class="box b4">
-                        <div class="img-box">
-                            <img src="images/gallery-6.jpg" alt="" />
-                            <h5>
-                                photography
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end gallery section -->
-
-    <!-- blog section -->
-
-    <section class="blog_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="detail-box">
-                        <div class="heading_container">
-                            <h2>
-                                Letest Blog
-                            </h2>
-                            <p>
-                                It is a long established fact that a reader will be distracted by the readable content of a page
-                            </p>
-                            <a href="">
-                Read More
-              </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="blog_container">
-            <div class="blog_bg">
-                <img src="images/gallery-bg.png" alt="" />
-            </div>
-            <div class="container">
-                <div class="blog_box">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="box b1">
-                                <div class="img-box">
-                                    <img src="images/blog1.jpg" alt="" />
-                                </div>
-                                <div class="blog-detail">
-                                    <div class="blog_title">
-                                        <h5>
-                                            Best photography
-                                        </h5>
-                                        <div class="blog_post">
-                                            <h6>
-                                                Post By: Pic studio
-                                            </h6>
-                                            <h6>
-                                                16-01-2020
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <p>
-                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page
-                                        when looking at its layout. The point of using Lorem Ipsum
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="box b2">
-                                <div class="img-box">
-                                    <img src="images/blog2.jpg" alt="" />
-                                </div>
-                                <div class="blog-detail">
-                                    <div class="blog_title">
-                                        <h5>
-                                            Photography
-                                        </h5>
-                                        <div class="blog_post">
-                                            <h6>
-                                                Post By: Pic studio
-                                            </h6>
-                                            <h6>
-                                                16-01-2020
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <p>
-                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page
-                                        when looking at its layout. The point of using Lorem Ipsum
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- end blog section -->
-
-    <!-- client section -->
-
-    <section class="client_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 ml-auto">
-                    <div class="heading_container">
-                        <h2>
-                            What Says Customer
-                        </h2>
-                        <p>
-                            It is a long established fact that a reader will be distracted by the readable content of a page
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="client_container">
-            <div class="client_bg">
-                <img src="images/gallery-bg.png" alt="" />
-            </div>
-            <div class="container">
-                <div class="client_box">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="box b1">
-                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <div class="client_content-box layout_padding">
-                                                <div class="img-box">
-                                                    <img src="images/client.png" alt="" />
-                                                </div>
-                                                <div class="detail-box">
-                                                    <h4>
-                                                        Plio Dorak
-                                                    </h4>
-                                                    <p>
-                                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page
-                                                        when looking at its layout. The point of using Lorem Ipsum
-                                                    </p>
-                                                    <img src="images/quote.png" alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <div class="client_content-box layout_padding">
-                                                <div class="img-box">
-                                                    <img src="images/client.png" alt="" />
-                                                </div>
-                                                <div class="detail-box">
-                                                    <h4>
-                                                        Plio Dorak
-                                                    </h4>
-                                                    <p>
-                                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page
-                                                        when looking at its layout. The point of using Lorem Ipsum
-                                                    </p>
-                                                    <img src="images/quote.png" alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <div class="client_content-box layout_padding">
-                                                <div class="img-box">
-                                                    <img src="images/client.png" alt="" />
-                                                </div>
-                                                <div class="detail-box">
-                                                    <h4>
-                                                        Plio Dorak
-                                                    </h4>
-                                                    <p>
-                                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page
-                                                        when looking at its layout. The point of using Lorem Ipsum
-                                                    </p>
-                                                    <img src="images/quote.png" alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="box b2">
-                                <div class="camera_img-box">
-                                    <img src="images/camera.png" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- end client section -->
-
-    <!-- info section -->
-
-    <section class="info_section ">
-        <div class="info_container layout_padding-top">
-            <div class="container">
-                <div class="heading_container">
-                    <h2>
-                        Contact Us
-                    </h2>
-                </div>
-                <div class="info_main">
-                    <div class="row">
-                        <div class="col-md-4 col-lg-3">
-                            <div class="info_contact ">
-                                <a href="#" class="link-box">
-                                    <div class="img-box">
-                                        <img src="images/location.png" alt="" />
-                                    </div>
-                                    <div class="detail-box">
-                                        <h6>
-                                            Location
-                                        </h6>
-                                    </div>
-                                </a>
-                                <a href="#" class="link-box">
-                                    <div class="img-box">
-                                        <img src="images/mail.png" alt="" />
-                                    </div>
-                                    <div class="detail-box">
-                                        <h6>
-                                            demo@gmail.com
-                                        </h6>
-                                    </div>
-                                </a>
-                                <a href="#" class="link-box">
-                                    <div class="img-box">
-                                        <img src="images/call.png" alt="" />
-                                    </div>
-                                    <div class="detail-box">
-                                        <h6>
-                                            Call +01 1234567890
-                                        </h6>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-lg-3">
-                            <div class="info_link-box">
-                                <ul>
-                                    <li class=" ">
-                                        <a class="" href="index.html">Home <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="">
-                                        <a class="" href="about.html">About </a>
-                                    </li>
-                                    <li class="">
-                                        <a class="" href="gallery.html">Gallery </a>
-                                    </li>
-                                    <li class="">
-                                        <a class="" href="blog.html">Blog </a>
-                                    </li>
-                                    <li class="">
-                                        <a class="" href="testimonial.html">Testimonial </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6 ">
-                            <div class="social_box">
-                                <a href="#">
-                                    <img src="images/facebook.png" alt="" />
-                                </a>
-                                <a href="#">
-                                    <img src="images/twitter.png" alt="" />
-                                </a>
-                                <a href="#">
-                                    <img src="images/linkedin.png" alt="" />
-                                </a>
-                                <a href="#">
-                                    <img src="images/instagram.png" alt="" />
-                                </a>
-                                <a href="#">
-                                    <img src="images/youtube.png" alt="" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- end info section -->
-
-    <!-- footer section -->
-    <footer class="footer_section ">
-        <div class="container">
-            <p>
-                &copy; <span id="displayYear"></span> All Rights Reserved. Design by
-                <a href="https://html.design/">Free Html Templates</a>
-            </p>
-        </div>
-    </footer>
-    <!-- footer section -->
-
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/custom.js"></script>
+    <!-- Scripts -->
 </body>
 
 </html>
