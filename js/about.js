@@ -1,7 +1,7 @@
 // set global default decide options when initializing the client
 const optimizelyClient = window.optimizelySdk.createInstance({
     sdkKey: 'JnAuUBx7dZUdibLcw9kPm',
-    defaultDecideOptions: [OptimizelyDecideOption.DISABLE_DECISION_EVENT],
+    defaultDecideOptions: [window.optimizelySdk.OptimizelyDecideOption.DISABLE_DECISION_EVENT],
 });
 
 if (optimizelyClient) {
@@ -18,8 +18,8 @@ if (optimizelyClient) {
         // set additional options in a decide call
         const decisionResults = user.decideAll(
             [
-                OptimizelyDecideOption.ENABLED_FLAGS_ONLY,
-                OptimizelyDecideOption.IGNORE_USER_PROFILE_SERVICE,
+                window.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY,
+                window.optimizelySdk.OptimizelyDecideOption.IGNORE_USER_PROFILE_SERVICE,
             ]
         );
 
