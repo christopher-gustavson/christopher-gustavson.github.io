@@ -1,7 +1,5 @@
-const optimizelySdk = require('@optimizely/optimizely-sdk');
-
-const optimizelyClient = optimizelySdk.createInstance({
-    sdkKey: 'JnAuUBx7dZUdibLcw9kPm'
+const optimizelyClient = window.optimizelySdk.createInstance({
+    sdkKey: '<JnAuUBx7dZUdibLcw9kPm>'
 });
 
 optimizelyClient.onReady().then(() => {
