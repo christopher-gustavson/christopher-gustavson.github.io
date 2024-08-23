@@ -1,14 +1,14 @@
 const optimizelyClient = window.optimizelySdk.createInstance({
     sdkKey: 'JnAuUBx7dZUdibLcw9kPm'
 });
+
 optimizelyClient.onReady().then(() => {
 
-    // run the test for 10 different hardcoded users
     // generate a random user ID
     let userId = 'abc123';
     // add user attribute
     let attributes = {
-        isVIP: true
+        seen_test: true
     };
     // create a user context
     let user = optimizelyClient.createUserContext(userId, attributes);
