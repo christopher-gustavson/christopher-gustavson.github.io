@@ -10,7 +10,11 @@ if (optimizelyClient) {
             throw new Error(reason);
         }
 
-        const user = optimizelyClient.createUserContext('abc123');
+        const attributes = {
+            seen_test: true
+        };
+
+        const user = optimizelyClient.createUserContext('abc123', attributes);
         if (!user) {
             throw new Error('failed to create user context');
         }
@@ -19,7 +23,7 @@ if (optimizelyClient) {
         decisions = user.decideAll([indow.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY]);
         const flagKeys = Object.keys(decisions);
         const decisionForBanner = decisions['banner_test'];
-        console.log('decisionForBanner',decisionForBanner);
+        console.log('decisionForBanner', decisionForBanner);
     }).catch((err) => {
         // handle error
     });
