@@ -1,7 +1,6 @@
 const optimizelyClient = window.optimizelySdk.createInstance({
-    sdkKey: '<JnAuUBx7dZUdibLcw9kPm>'
+    sdkKey: 'JnAuUBx7dZUdibLcw9kPm'
 });
-
 optimizelyClient.onReady().then(() => {
 
     // run the test for 10 different hardcoded users
