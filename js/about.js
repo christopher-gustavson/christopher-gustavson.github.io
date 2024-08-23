@@ -14,16 +14,12 @@ if (optimizelyClient) {
         if (!user) {
             throw new Error('failed to create user context');
         }
-
         // set additional options in a decide call
-        const decisionResults = user.decideAll(
-            [
-                window.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY,
-                window.optimizelySdk.OptimizelyDecideOption.IGNORE_USER_PROFILE_SERVICE,
-            ]
-        );
-
-        console.log('decisionResults', decisionResults);
+        let decisions = user.decideAll();
+        decisions = user.decideAll([indow.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY]);
+        const flagKeys = Object.keys(decisions);
+        const decisionForBanner = decisions['banner_test'];
+        console.log('decisionForBanner',decisionForBanner);
     }).catch((err) => {
         // handle error
     });
