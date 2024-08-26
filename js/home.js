@@ -16,7 +16,7 @@ if (optimizelyClient) {
         //     attributes = JSON.parse(sessionStorage.attributes);
         // }
         //if (!attributes.length) {
-        attributes = { seen_test: true };
+        attributes = {};
         localStorage.setItem('attributes', JSON.stringify(attributes));
         //}
         // create a user context
@@ -44,6 +44,9 @@ if (optimizelyClient) {
                 user.trackEvent('user_converted');
                 console.log(`\nUser ${user.getUserId()} converted.`)
             };
+            user.setAttribute('seen_test', true);
+            attributes = { seen_test: true };
+            localStorage.setItem('attributes', JSON.stringify(attributes));
         } else {
             console.log(`\nUser ${user.getUserId()} failed traffic allocation.`)
         };
