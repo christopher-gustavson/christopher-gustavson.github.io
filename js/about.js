@@ -35,6 +35,7 @@ if (optimizelyClient) {
         } else {
             console.log('Visitor did not qualify for the test');
         }
+        console.log('Visitor did not qualify for the test', decisions['banner_test']);
 
     }).catch((err) => {
         // handle error
