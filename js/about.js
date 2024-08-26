@@ -11,12 +11,12 @@ if (optimizelyClient) {
         }
 
         let attributes;
-        if (sessionStorage.attributes) {
-            attributes = JSON.parse(sessionStorage.attributes);
+        if (localStorage.attributes) {
+            attributes = JSON.parse(localStorage.attributes);
         }
         if (!attributes.length) {
             attributes = { seen_test: true };
-            sessionStorage.setItem('attributes', JSON.stringify(attributes));
+            localStorage.setItem('attributes', JSON.stringify(attributes));
         }
 
         const user = optimizelyClient.createUserContext('abc123', attributes);
