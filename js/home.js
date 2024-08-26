@@ -7,9 +7,14 @@ optimizelyClient.onReady().then(() => {
     // generate a random user ID
     let userId = 'abc123';
     // add user attribute
-    let attributes = {
-        seen_test: true
-    };
+    let attributes;
+    // if (sessionStorage.attributes) {
+    //     attributes = JSON.parse(sessionStorage.attributes);
+    // }
+    //if (!attributes.length) {
+    attributes = { 'seen_test': true };
+    sessionStorage.setItem('attributes', JSON.stringify(attributes));
+    //}
     // create a user context
     let user = optimizelyClient.createUserContext(userId, attributes);
 
