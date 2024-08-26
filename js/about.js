@@ -30,12 +30,14 @@ if (optimizelyClient) {
         //console.log('keys', flagKeys);
         let decisionForTest = decisions['banner_test'];
         if (decisionForTest) {
-            if (decisionForTest.userContext.attributes.seen_test == true) {
-                console.log('Visitor qualified for ' + decisionForTest.flagKey);
-            } else {
-                console.log('Visitor did not qualify for ' + decisionForTest.flagKey);
+            if (decisionForTest.userContext.attributes.seen_test) {
+                if (decisionForTest.userContext.attributes.seen_test == true) {
+                    console.log('Visitor qualified for ' + decisionForTest.flagKey);
+                } else {
+                    console.log('Visitor did not qualify for ' + decisionForTest.flagKey);
+                }
+                console.log('attribute "seen_test" has value of: ' + decisionForTest.userContext.attributes.seen_test);
             }
-            console.log('attribute "seen_test" has value of: ' + decisionForTest.userContext.attributes.seen_test);
         } else {
             console.log('Visitor did not qualify for the test');
         }
