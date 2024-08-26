@@ -15,7 +15,8 @@ if (optimizelyClient) {
             attributes = JSON.parse(localStorage.attributes);
         }
         if (!attributes) {
-            attributes = { seen_test: false };
+            // attributes = { seen_test: false };
+            attributes = {};
             localStorage.setItem('attributes', JSON.stringify(attributes));
         }
 
@@ -31,12 +32,11 @@ if (optimizelyClient) {
         let decisionForTest = decisions['banner_test'];
         console.log('decisionForTest', decisionForTest);
         if (decisionForTest) {
-            //if (decisionForTest.userContext.attributes.seen_test) {
             if (decisionForTest.userContext.attributes.seen_test == true) {
-                console.log('Visitor qualified for ' + decisionForTest.flagKey);
+                console.log('Visitor saw experience: ' + decisionForTest.flagKey);
                 document.querySelector('h2').innerText = "Seen Banner Test";
             } else {
-                console.log('Visitor did not qualify for ' + decisionForTest.flagKey);
+                console.log('Visitor didnt see experience: ' + decisionForTest.flagKey);
             }
             console.log('attribute "seen_test" has value of: ' + decisionForTest.userContext.attributes.seen_test);
             //}
