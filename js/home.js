@@ -12,7 +12,7 @@ optimizelyClient.onReady().then(() => {
     //     attributes = JSON.parse(sessionStorage.attributes);
     // }
     //if (!attributes.length) {
-    attributes = { 'seen_test': true };
+    attributes = { seen_test: true };
     sessionStorage.setItem('attributes', JSON.stringify(attributes));
     //}
     // create a user context
