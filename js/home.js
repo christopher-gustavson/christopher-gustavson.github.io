@@ -13,7 +13,7 @@ optimizelyClient.onReady().then(() => {
     // }
     //if (!attributes.length) {
     attributes = { seen_test: true };
-    sessionStorage.setItem('attributes', JSON.stringify(attributes));
+    localStorage.setItem('attributes', JSON.stringify(attributes));
     //}
     // create a user context
     let user = optimizelyClient.createUserContext(userId, attributes);
