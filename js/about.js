@@ -28,13 +28,17 @@ if (optimizelyClient) {
         decisions = user.decideAll([window.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY]);
         const flagKeys = Object.keys(decisions);
         let decisionForTest = decisions['banner_test'];
-        // if (decisionForTest) {
-        //     const response = JSON.parse(decisionForTest);
-        //     console.log('Visitor qualified for ' + response.flagKey);
-        //     console.log('keys', flagKeys);
-        // } else {
-        //     console.log('Visitor did not qualify for the test');
-        // }
+        if (decisionForTest) {
+            const response = JSON.parse(decisionForTest);
+            if (response.userContext.attributes.seen_test == true) {
+                console.log('Visitor qualified for ' + response.flagKey);
+                console.log('keys', flagKeys);
+            } else {
+                console.log('Visitor saw test: ' + response.userContext.attributes.seen_test);
+            }
+        } else {
+            console.log('Visitor did not qualify for the test');
+        }
         console.log('decisionForTest', decisionForTest);
 
     }).catch((err) => {
