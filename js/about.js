@@ -9,17 +9,17 @@ if (optimizelyClient) {
         if (!success) {
             throw new Error(reason);
         }
-
-        let attributes;
+        let userId = 'abc123';
+        let attributes = {};
         if (localStorage.attributes) {
             attributes = JSON.parse(localStorage.attributes);
         }
-        if (attributes != {}) {
+        if (attributes == {}) {
             attributes = { seen_test: false };
             localStorage.setItem('attributes', JSON.stringify(attributes));
         }
 
-        const user = optimizelyClient.createUserContext('abc123', attributes);
+        const user = optimizelyClient.createUserContext(userId, attributes);
         if (!user) {
             throw new Error('failed to create user context');
         }
