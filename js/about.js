@@ -10,9 +10,14 @@ if (optimizelyClient) {
             throw new Error(reason);
         }
 
-        const attributes = {
-            seen_test: true
-        };
+        let attributes;
+        if (sessionStorage.attributes) {
+            attributes = JSON.parse(sessionStorage.attributes);
+        }
+        if (!attributes.length) {
+            attributes = { seen_test: true };
+            sessionStorage.setItem('attributes', JSON.stringify(attributes));
+        }
 
         const user = optimizelyClient.createUserContext('abc123', attributes);
         if (!user) {
