@@ -29,17 +29,17 @@ if (optimizelyClient) {
         const flagKeys = Object.keys(decisions);
         let decisionForTest = decisions['banner_test'];
         if (decisionForTest) {
-            const response = JSON.parse(decisionForTest);
-            if (response.userContext.attributes.seen_test == true) {
-                console.log('Visitor qualified for ' + response.flagKey);
+            //const response = JSON.parse(decisionForTest);
+            if (decisionForTest.userContext.attributes.seen_test == true) {
+                console.log('Visitor qualified for ' + decisionForTest.flagKey);
                 console.log('keys', flagKeys);
             } else {
-                console.log('Visitor saw test: ' + response.userContext.attributes.seen_test);
+                console.log('Visitor saw test: ' + decisionForTest.userContext.attributes.seen_test);
             }
         } else {
             console.log('Visitor did not qualify for the test');
         }
-        console.log('decisionForTest', decisionForTest);
+        //console.log('decisionForTest', decisionForTest);
 
     }).catch((err) => {
         // handle error
