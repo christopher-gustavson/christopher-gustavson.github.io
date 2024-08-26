@@ -25,7 +25,7 @@ if (optimizelyClient) {
         }
         // set additional options in a decide call
         let decisions = user.decideAll();
-        decisions = user.decideAll([indow.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY]);
+        decisions = user.decideAll([window.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY]);
         const flagKeys = Object.keys(decisions);
         const decisionForBanner = decisions['banner_test'];
         console.log('decisionForBanner', decisionForBanner);
