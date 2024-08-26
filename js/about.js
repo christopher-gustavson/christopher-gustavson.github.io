@@ -38,7 +38,11 @@ if (optimizelyClient) {
             } else {
                 console.log('Visitor didnt see experience: ' + decisionForTest.flagKey);
             }
-            console.log('attribute "seen_test" has value of: ' + decisionForTest.userContext.attributes.seen_test);
+            if (decisionForTest.userContext.attributes.seen_test.length) {
+                console.log('attribute "seen_test" has value of: ' + decisionForTest.userContext.attributes.seen_test);
+            } else {
+                console.log('attribute "seen_test" does not exist');
+            }
             //}
         } else {
             console.log('Visitor did not qualify for the test');
