@@ -15,7 +15,7 @@ if (optimizelyClient) {
             attributes = JSON.parse(localStorage.attributes);
         }
         if (!attributes.length) {
-            attributes = { seen_test: true };
+            attributes = {};
             localStorage.setItem('attributes', JSON.stringify(attributes));
         }
 
