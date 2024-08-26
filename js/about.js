@@ -29,6 +29,7 @@ if (optimizelyClient) {
         const flagKeys = Object.keys(decisions);
         //console.log('keys', flagKeys);
         let decisionForTest = decisions['banner_test'];
+        console.log('decisionForTest', decisionForTest);
         if (decisionForTest) {
             if (decisionForTest.userContext.attributes.seen_test) {
                 if (decisionForTest.userContext.attributes.seen_test == true) {
@@ -41,7 +42,6 @@ if (optimizelyClient) {
         } else {
             console.log('Visitor did not qualify for the test');
         }
-        //console.log('decisionForTest', decisionForTest);
 
     }).catch((err) => {
         // handle error
