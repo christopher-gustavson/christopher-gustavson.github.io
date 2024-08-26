@@ -10,11 +10,11 @@ if (optimizelyClient) {
             throw new Error(reason);
         }
         let userId = 'abc123';
-        let attributes = {};
+        let attributes;
         if (localStorage.attributes) {
             attributes = JSON.parse(localStorage.attributes);
         }
-        if (attributes == {}) {
+        if (!attributes) {
             attributes = { seen_test: false };
             localStorage.setItem('attributes', JSON.stringify(attributes));
         }
@@ -28,7 +28,7 @@ if (optimizelyClient) {
         decisions = user.decideAll([window.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY]);
         const flagKeys = Object.keys(decisions);
         let decisionForTest = decisions['banner_test'] || {};
-        if (decisionForTest != {}) {
+        if (decisionForTest) {
             const response = JSON.parse(decisionForTest);
             console.log('Visitor qualified for ' + response.flagKey);
             console.log('keys', flagKeys);
