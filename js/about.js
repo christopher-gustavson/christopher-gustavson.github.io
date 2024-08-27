@@ -25,8 +25,10 @@ if (optimizelyClient) {
             throw new Error('failed to create user context');
         }
         // set additional options in a decide call
-        let decisions = user.decideAll();
-        decisions = user.decideAll([window.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY]);
+        let decisions = user.decideAll([
+            window.optimizelySdk.OptimizelyDecideOption.DISABLE_DECISION_EVENT,
+            window.optimizelySdk.OptimizelyDecideOption.ENABLED_FLAGS_ONLY
+        ]);
         const flagKeys = Object.keys(decisions);
         //console.log('keys', flagKeys);
         let decisionForTest = decisions['banner_test'];
