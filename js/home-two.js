@@ -33,7 +33,7 @@ if (optimizelyClient) {
         attributes = { 'state': 'OR' };
         localStorage.setItem('attributes', JSON.stringify(attributes));
         //}
-        console.log('attributes', attributes);
+        console.log('Optimizely attributes', attributes);
 
         // create a user context
         let user = optimizelyClient.createUserContext(userId, attributes);
@@ -54,11 +54,11 @@ if (optimizelyClient) {
         if (featureEnabled) {
             var banner = '<div class="top-banner" style="background-color: blue;color: #fff; padding: 3px; font-weight: bold; text-align: center; font-size: 14px; height: 30px;">' + variableString + '</div>'
             document.querySelector('#myNavbar').insertAdjacentHTML('afterbegin', banner);
-            console.log(`\nFeature test activated. User ${user.getUserId()} saw flag variation: ${variationKey} and got the message: ${variableString}`);
+            console.log(`\nOptimizely Feature test activated. User ${user.getUserId()} saw flag variation: ${variationKey} and got the message: ${variableString}`);
             // fire a conversion event, depending on the prior coin flip
             if (trackConversion) {
                 user.trackEvent('user_converted');
-                console.log(`\nUser ${user.getUserId()} converted.`)
+                console.log(`\nOptimizely User ${user.getUserId()} converted.`)
             };
         } else {
             console.log(`\nUser ${user.getUserId()} failed traffic allocation.`)
