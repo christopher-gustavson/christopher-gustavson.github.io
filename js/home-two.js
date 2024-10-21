@@ -27,11 +27,14 @@ if (optimizelyClient) {
         let attributes;
         if (localStorage.attributes) {
             attributes = JSON.parse(localStorage.attributes);
-        } else {
-            // attributes = { seen_test: false };
+        }
+        if (!attributes) {
             attributes = {};
+            // let attributes = { 'state':'OR' };
             localStorage.setItem('attributes', JSON.stringify(attributes));
         }
+        console.log('attributes', attributes);
+
         // create a user context
         let user = optimizelyClient.createUserContext(userId, attributes);
 
