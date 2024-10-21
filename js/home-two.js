@@ -16,21 +16,21 @@ function getCookie(name) {
 
 if (optimizelyClient) {
     optimizelyClient.onReady().then(({ success, reason }) => {
-        if (!success) {
-            throw new Error(reason);
-        }
-        // set user ID
-        let userId = getCookie('optimizelyEndUserId') || 'abc123';
-        //console.log('FX User ID: ', userId);
+            if (!success) {
+                throw new Error(reason);
+            }
+            // set user ID
+            let userId = getCookie('optimizelyEndUserId') || 'abc123';
+            //console.log('FX User ID: ', userId);
 
-        // add user attribute
-        let attributes;
-        if (localStorage.attributes) {
-            attributes = JSON.parse(localStorage.attributes);
-        }
-        if (!attributes) {
-            attributes = {};
-            // let attributes = { 'state':'OR' };
+            // add user attribute
+            let attributes;
+            // if (localStorage.attributes) {
+            //     attributes = JSON.parse(localStorage.attributes);
+            // } else {
+            // if (!attributes) {
+            //attributes = {};
+            attributes = { 'state': 'OR' };
             localStorage.setItem('attributes', JSON.stringify(attributes));
         }
         console.log('attributes', attributes);
@@ -60,15 +60,13 @@ if (optimizelyClient) {
                 user.trackEvent('user_converted');
                 console.log(`\nUser ${user.getUserId()} converted.`)
             };
-            user.setAttribute('seen_test', true);
-            attributes = { seen_test: true };
-            localStorage.setItem('attributes', JSON.stringify(attributes));
         } else {
             console.log(`\nUser ${user.getUserId()} failed traffic allocation.`)
         };
     }).catch((err) => {
-        // handle error
-    });
-} else {
+    // handle error
+});
+}
+else {
     // handle instantiation error
 }
