@@ -25,8 +25,14 @@ if (optimizelyClient) {
 
         // add user attribute
         let attributes;
-        attributes = {};
-        localStorage.setItem('attributes', JSON.stringify(attributes));
+        if (localStorage.attributes) {
+            attributes = JSON.parse(localStorage.attributes);
+        }
+        if (!attributes) {
+            // attributes = { seen_test: false };
+            attributes = {};
+            localStorage.setItem('attributes', JSON.stringify(attributes));
+        }
         // create a user context
         let user = optimizelyClient.createUserContext(userId, attributes);
 
