@@ -30,8 +30,8 @@ if (optimizelyClient) {
         // } else {
         // if (!attributes) {
         //attributes = {};
-        attributes = { 'state': 'OR' };
-        localStorage.setItem('attributes', JSON.stringify(attributes));
+        //attributes = { 'state': 'OR' };
+        //localStorage.setItem('attributes', JSON.stringify(attributes));
         //}
         console.log('Optimizely attributes', attributes);
 
