@@ -3,13 +3,25 @@ const optimizelyClient = window.optimizelySdk.createInstance({
     sdkKey: 'JDDLtDrUVRMiVyehp6aqK',
 });
 
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
 if (optimizelyClient) {
     optimizelyClient.onReady().then(({ success, reason }) => {
         if (!success) {
             throw new Error(reason);
         }
         // set user ID
-        let userId = 'abc123';
+        let userId = getCookie('optimizelyEndUserId') || 'abc123';
+        console.log('FX User ID: ', userId);
 
         // add user attribute
         let attributes;
