@@ -21,14 +21,13 @@ if (optimizelyClient) {
         }
         // set user ID
         let userId = getCookie('optimizelyEndUserId') || 'abc123';
-        console.log('FX User ID: ', userId);
+        //console.log('FX User ID: ', userId);
 
         // add user attribute
         let attributes;
         if (localStorage.attributes) {
             attributes = JSON.parse(localStorage.attributes);
-        }
-        if (!attributes) {
+        } else {
             // attributes = { seen_test: false };
             attributes = {};
             localStorage.setItem('attributes', JSON.stringify(attributes));
