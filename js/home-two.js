@@ -25,14 +25,14 @@ if (optimizelyClient) {
 
         // add user attribute
         let attributes;
-        // if (localStorage.attributes) {
-        //     attributes = JSON.parse(localStorage.attributes);
-        // } else {
-        // if (!attributes) {
-        //attributes = {};
-        //attributes = { 'state': 'OR' };
-        //localStorage.setItem('attributes', JSON.stringify(attributes));
-        //}
+        if (localStorage.attributes) {
+            attributes = JSON.parse(localStorage.attributes);
+        } else
+        if (!attributes) {
+            attributes = {};
+            //let attributes = { 'state': 'OR' };
+            localStorage.setItem('attributes', JSON.stringify(attributes));
+        }
         console.log('Optimizely attributes', attributes);
 
         // create a user context
