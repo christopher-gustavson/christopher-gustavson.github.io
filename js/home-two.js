@@ -27,8 +27,7 @@ if (optimizelyClient) {
         let attributes;
         if (localStorage.attributes) {
             attributes = JSON.parse(localStorage.attributes);
-        } else
-        if (!attributes) {
+        } else {
             attributes = {};
             //let attributes = { 'state': 'OR' };
             localStorage.setItem('attributes', JSON.stringify(attributes));
