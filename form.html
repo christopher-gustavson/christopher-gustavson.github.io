@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Form Example</title>
+  <script src="https://cdn.optimizely.com/js/20870890027.js"></script>
+</head>
+<body>
+
+  <form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+
+    <label for="email">Experiment ID:</label>
+    <input type="text" id="expId" name="expId"><br><br>
+
+    <label for="email">Variation ID:</label>
+    <input type="text" id="varId" name="varId"><br><br>
+
+    <input type="button" value="Submit" onclick="handleSubmit()">
+  </form>
+
+  <script>
+    function handleSubmit() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+
+      console.log("Name:", name);
+      console.log("Email:", email);
+
+      // You can perform additional actions here, such as:
+      // - Form validation
+      // - Sending data to a server using AJAX
+      // - Displaying a success message
+    }
+  </script>
+
+</body>
+</html>
