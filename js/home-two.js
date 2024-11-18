@@ -47,7 +47,7 @@ if (optimizelyClient) {
             console.log(' decision error: ', decision['reasons']);
         }
         // flip a coin to determine if a visitor will track an event
-        let trackConversion = true;
+        let trackConversion = false;
 
         // log whether visitor got the feature, and which variation and feature variable they got
         if (featureEnabled) {
