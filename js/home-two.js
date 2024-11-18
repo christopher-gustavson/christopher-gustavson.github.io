@@ -41,6 +41,8 @@ if (optimizelyClient) {
         let decision = user.decide('banner_test');
         let featureEnabled = decision.enabled;
         let variableString = decision.variables['message'];
+        let variableCtaString = decision.variables['cta_message'];
+        let variableUrlString = decision.variables['url_string'];
         let variationKey = decision.variationKey;
         // did decision fail with a critical error?
         if (variationKey === null) {
@@ -51,7 +53,7 @@ if (optimizelyClient) {
 
         // log whether visitor got the feature, and which variation and feature variable they got
         if (featureEnabled) {
-            var banner = '<div class="top-banner" style="background-color: blue;color: #fff; padding: 3px; font-weight: bold; text-align: center; font-size: 14px; height: 30px;">' + variableString + '</div>'
+            var banner = '<div class="top-banner" style="background-color: blue;color: #fff; padding: 3px; font-weight: bold; text-align: center; font-size: 14px; height: 30px;">' + variableString + '<a href="'+ variableUrlString +'">' + variableCtaString + '</a>' + '</div>'
             document.querySelector('#myNavbar').insertAdjacentHTML('afterbegin', banner);
             console.log(`\nOptimizely Feature test activated. User ${user.getUserId()} saw flag variation: ${variationKey} and got the message: ${variableString}`);
             // fire a conversion event, depending on the prior coin flip
