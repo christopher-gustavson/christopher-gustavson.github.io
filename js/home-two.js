@@ -21,7 +21,7 @@ if (optimizelyClient) {
         }
         // set user ID
         let userId = getCookie('optimizelyEndUserId') || 'abc123';
-        //console.log('FX User ID: ', userId);
+        console.log('FX User ID: ', userId);
 
         // add user attribute
         let attributes;
