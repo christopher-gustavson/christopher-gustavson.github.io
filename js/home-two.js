@@ -14,6 +14,17 @@ function getCookie(name) {
     return null;
 }
 
+//dataLayer Push for anchor clicks
+var a = document.querySelectorAll('a');
+var myFunction = function() {
+    var attr = this.getAttribute('id');
+    if (attr) {
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({'event': attr});
+    }
+};
+a.forEach((e) => e.onclick = myFunction;
+
 if (optimizelyClient) {
     optimizelyClient.onReady().then(({ success, reason }) => {
         if (!success) {
@@ -53,7 +64,7 @@ if (optimizelyClient) {
 
         // log whether visitor got the feature, and which variation and feature variable they got
         if (featureEnabled) {
-            var banner = '<div class="top-banner" style="background-color: blue;color: #fff; padding: 3px; font-weight: bold; text-align: center; font-size: 14px; height: 30px;">' + variableString + ' <a onclick="dataLayer.push({\'event\': \'purchase-order\'});" href="' + variableUrlString + '">' + variableCtaString + '</a></div>'
+            var banner = '<div class="top-banner" style="background-color: blue;color: #fff; padding: 3px; font-weight: bold; text-align: center; font-size: 14px; height: 30px;">' + variableString + ' <a id="purchase-order" href="' + variableUrlString + '">' + variableCtaString + '</a></div>'
             document.querySelector('#myNavbar').insertAdjacentHTML('afterbegin', banner);
             console.log(`\nOptimizely Feature test activated. User ${user.getUserId()} saw flag variation: ${variationKey} and got the message: ${variableString}`);
             // fire a conversion event, depending on the prior coin flip
