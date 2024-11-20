@@ -14,17 +14,6 @@ function getCookie(name) {
     return null;
 }
 
-//dataLayer Push for anchor clicks
-var a = document.querySelectorAll('a');
-var myFunction = function() {
-    var attr = this.getAttribute('id');
-    if (attr) {
-        window.dataLayer = window.dataLayer || [];
-        dataLayer.push({'event': attr});
-    }
-};
-a.forEach((e) => e.onclick = myFunction);
-
 if (optimizelyClient) {
     optimizelyClient.onReady().then(({ success, reason }) => {
         if (!success) {
