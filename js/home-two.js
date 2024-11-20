@@ -23,7 +23,7 @@ var myFunction = function() {
         dataLayer.push({'event': attr});
     }
 };
-a.forEach((e) => e.onclick = myFunction;
+a.forEach((e) => e.onclick = myFunction);
 
 if (optimizelyClient) {
     optimizelyClient.onReady().then(({ success, reason }) => {
