@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample Form</title>
+    <script>
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+    if (userId != undefined) {
+        setCookie('optimizelyEndUserId',userId);
+    }
+    </script>
     <script src="https://cdn.optimizely.com/js/20870890027.js"></script>
 </head>
 <body>
