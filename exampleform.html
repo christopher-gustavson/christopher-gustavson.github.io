@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Form</title>
+</head>
+<body>
+    <h1>Sample Form</h1>
+
+    <form action="/submit" method="POST">
+        <!-- Full Name -->
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" required><br><br>
+
+        <!-- Email Address -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <!-- Gender -->
+        <p>Gender:</p>
+        <label for="male">Male</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="female">Female</label>
+        <input type="radio" id="female" name="gender" value="female"><br><br>
+
+        <!-- Interests -->
+        <p>Interests:</p>
+        <label for="sports">Sports</label>
+        <input type="checkbox" id="sports" name="interests" value="sports">
+        <label for="music">Music</label>
+        <input type="checkbox" id="music" name="interests" value="music">
+        <label for="travel">Travel</label>
+        <input type="checkbox" id="travel" name="interests" value="travel"><br><br>
+
+        <!-- Comments -->
+        <label for="comments">Comments:</label><br>
+        <textarea id="comments" name="comments" rows="4" cols="50"></textarea><br><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
