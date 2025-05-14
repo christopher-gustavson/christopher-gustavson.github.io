@@ -28,8 +28,8 @@ if (optimizelyClient) {
         if (localStorage.attributes || localStorage.attributes != '{}') {
             attributes = JSON.parse(localStorage.attributes);
         } else {
-            attributes = {};
-            let attributes = { 'state': 'OR' };
+            //attributes = {};
+            attributes = { 'state': 'OR' };
             localStorage.setItem('attributes', JSON.stringify(attributes));
         }
         console.log('Optimizely attributes', attributes);
