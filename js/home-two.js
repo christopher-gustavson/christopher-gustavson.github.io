@@ -25,8 +25,10 @@ if (optimizelyClient) {
 
         // add user attribute
         let attributes = {};
-        if (localStorage.attributes || localStorage.attributes != '{}') {
-            attributes = JSON.parse(localStorage.attributes);
+        if (localStorage.attributes) {
+            if (localStorage.attributes != '{}') {
+                attributes = JSON.parse(localStorage.attributes);
+            }
         } else {
             //attributes = {};
             attributes = { 'state': 'OR','qa-group':false };
