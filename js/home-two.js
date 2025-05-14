@@ -24,12 +24,12 @@ if (optimizelyClient) {
         console.log('FX User ID: ', userId);
 
         // add user attribute
-        let attributes;
+        let attributes = {};
         if (localStorage.attributes || localStorage.attributes != '{}') {
             attributes = JSON.parse(localStorage.attributes);
         } else {
             //attributes = {};
-            attributes = { 'state': 'OR' };
+            attributes = { 'state': 'OR','qa-group':false };
             localStorage.setItem('attributes', JSON.stringify(attributes));
         }
         console.log('Optimizely attributes', attributes);
