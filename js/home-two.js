@@ -1,5 +1,5 @@
 // set global default decide options when initializing the client
-const optimizely = window.optimizelySdk.createInstance({
+const fx_optimizely = window.optimizelySdk.createInstance({
   sdkKey: 'JDDLtDrUVRMiVyehp6aqK'
 });
 
@@ -14,8 +14,8 @@ function getCookie(name) {
     return null;
 }
 
-if (optimizely) {
-    optimizely.onReady().then(({ success, reason }) => {
+if (fx_optimizely) {
+    fx_optimizely.onReady().then(({ success, reason }) => {
         if (!success) {
             throw new Error(reason);
         }
@@ -37,7 +37,7 @@ if (optimizely) {
         console.log('Optimizely attributes', attributes);
 
         // create a user context
-        let user = optimizely.createUserContext(userId, attributes);
+        let user = fx_optimizely.createUserContext(userId, attributes);
 
         // add your feature's experiment rule key
         let decision = user.decide('banner_test');
@@ -71,4 +71,5 @@ if (optimizely) {
     });
 } else {
     // handle instantiation error
+    console.warn('Optimizely FX Not instantiated');
 }
