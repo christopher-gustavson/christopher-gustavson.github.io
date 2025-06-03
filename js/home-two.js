@@ -24,15 +24,15 @@ if (optimizelyClient) {
         console.log('FX User ID: ', userId);
 
         // add user attribute
-        let attributes = {};
-        if (localStorage.attributes) {
-            if (localStorage.attributes != '{}') {
-                attributes = JSON.parse(localStorage.attributes);
+        let fx_attributes = {};
+        if (localStorage.fx_attributes) {
+            if (localStorage.fx_attributes != '{}') {
+                attributes = JSON.parse(localStorage.fx_attributes);
             }
         } else {
-            //attributes = {};
-            attributes = { 'state': 'OR','qa-group':'false' };
-            localStorage.setItem('attributes', JSON.stringify(attributes));
+            fx_attributes = {};
+            //fx_attributes = { 'state': 'OR','qa-group':'false' };
+            localStorage.setItem('fx_attributes', JSON.stringify(fx_attributes));
         }
         console.log('Optimizely attributes', attributes);
 
