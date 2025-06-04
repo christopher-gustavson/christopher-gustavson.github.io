@@ -27,17 +27,17 @@ if (fx_optimizely) {
         let fx_attributes = {};
         if (localStorage.fx_attributes) {
             if (localStorage.fx_attributes != '{}') {
-                attributes = JSON.parse(localStorage.fx_attributes);
+                fx_attributes = JSON.parse(localStorage.fx_attributes);
             }
         } else {
-            fx_attributes = {};
-            //fx_attributes = { 'state': 'OR','qa-group':'false' };
+            //fx_attributes = {};
+            fx_attributes = { 'state': 'OR','qa-group':'false' };
             localStorage.setItem('fx_attributes', JSON.stringify(fx_attributes));
         }
-        console.log('Optimizely attributes', attributes);
+        console.log('Optimizely attributes', fx_attributes);
 
         // create a user context
-        let user = fx_optimizely.createUserContext(userId, attributes);
+        let user = fx_optimizely.createUserContext(userId, fx_attributes);
 
         // add your feature's experiment rule key
         let decision = user.decide('banner_test');
