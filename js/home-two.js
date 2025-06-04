@@ -49,6 +49,8 @@ if (fx_optimizely) {
         // did decision fail with a critical error?
         if (variationKey === null) {
             console.log(' decision error: ', decision['reasons']);
+        } else {
+            console.log('decision',decision);
         }
         // flip a coin to determine if a visitor will track an event
         let trackConversion = false;
