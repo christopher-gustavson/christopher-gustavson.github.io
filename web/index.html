@@ -7,105 +7,8 @@
     <title>VoltTech | Modern Electronics Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563eb',
-                        secondary: '#9333ea',
-                        neutral: {
-                            100: '#f3f4f6',
-                            800: '#1f2937',
-                            900: '#111827',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'bounce-slow': 'bounce 2s infinite'
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/css">
-        .grid-masonry {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .product-card {
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .cart-btn {
-            transition: all 0.2s ease;
-        }
-        
-        .cart-btn:hover {
-            transform: scale(1.05);
-        }
-        
-        .feature-card {
-            backdrop-filter: blur(10px);
-            background: rgba(31, 41, 55, 0.7);
-        }
-        
-        .hero-pattern {
-            background: linear-gradient(to right bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        .animated-gradient {
-            background-image: linear-gradient(90deg, #6d28d9, #4f46e5, #2563eb, #0ea5e9);
-            background-size: 300% 300%;
-            animation: gradientBG 15s ease infinite;
-        }
-        
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        
-        .deal-countdown {
-            background: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(5px);
-        }
-        /* Custom scrollbar */
-        
-         ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-         ::-webkit-scrollbar-track {
-            background: #1f2937;
-        }
-        
-         ::-webkit-scrollbar-thumb {
-            background: #4f46e5;
-            border-radius: 5px;
-        }
-        
-         ::-webkit-scrollbar-thumb:hover {
-            background: #6366f1;
-        }
-    </style>
+    <script type="text/javascript" src='/js/main.js'></script>
+    <link type="text/css" href="/css/main.css" rel="stylesheet">
 </head>
 
 <body class="bg-neutral-900 text-neutral-100 font-sans">
@@ -265,7 +168,7 @@
                     <div class="p-5">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h3 class="font-semibold"><a href="/web/pdp.html">Axiom Pro X</a></h3>
+                                <h3 class="font-semibold"><a href="/pdp.html">Axiom Pro X</a></h3>
                                 <p class="text-sm text-neutral-400">Flagship smartphone</p>
                             </div>
                             <div class="bg-gradient-to-r from-primary to-indigo-600 text-xs font-bold px-2 py-1 rounded">
