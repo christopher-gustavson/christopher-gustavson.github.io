@@ -28,7 +28,7 @@
 }
 
 .hero-pattern {
-    background: linear-gradient(to right bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), url("../images/elec_hero.jpg");
+    background: linear-gradient(to right bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), url("/images/elec_hero.jpg");
 }
 
 .animated-gradient {
