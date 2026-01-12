@@ -1,5 +1,6 @@
-const fx_optimizely = window.optimizelySdk.createInstance({
-  sdkKey: 'JDDLtDrUVRMiVyehp6aqK'
+// set global default decide options when initializing the client
+const optimizelyClient = window.optimizelySdk.createInstance({
+    sdkKey: 'JDDLtDrUVRMiVyehp6aqK',
 });
 
 function getCookie(name) {
@@ -13,30 +14,28 @@ function getCookie(name) {
     return null;
 }
 
-if (fx_optimizely) {
-    fx_optimizely.onReady().then(({ success, reason }) => {
+if (optimizelyClient) {
+    optimizelyClient.onReady().then(({ success, reason }) => {
         if (!success) {
             throw new Error(reason);
         }
         // set user ID
         let userId = getCookie('optimizelyEndUserId') || 'abc123';
-        console.log('FX User ID: ', userId);
+        //console.log('FX User ID: ', userId);
 
         // add user attribute
-        let fx_attributes = {};
-        if (localStorage.fx_attributes) {
-            if (localStorage.fx_attributes != '{}') {
-                fx_attributes = JSON.parse(localStorage.fx_attributes);
-            }
+        let attributes;
+        if (localStorage.attributes) {
+            attributes = JSON.parse(localStorage.attributes);
         } else {
-            //fx_attributes = {};
-            fx_attributes = { 'state': 'OR','qa-group':'false' };
-            localStorage.setItem('fx_attributes', JSON.stringify(fx_attributes));
+            attributes = {};
+            //let attributes = { 'state': 'OR' };
+            localStorage.setItem('attributes', JSON.stringify(attributes));
         }
-        console.log('Optimizely attributes', fx_attributes);
+        console.log('Optimizely attributes', attributes);
 
         // create a user context
-        let user = fx_optimizely.createUserContext(userId, fx_attributes);
+        let user = optimizelyClient.createUserContext(userId, attributes);
 
         // add your feature's experiment rule key
         let decision = user.decide('banner_test');
@@ -48,16 +47,14 @@ if (fx_optimizely) {
         // did decision fail with a critical error?
         if (variationKey === null) {
             console.log(' decision error: ', decision['reasons']);
-        } else {
-            console.log('decision',decision);
         }
         // flip a coin to determine if a visitor will track an event
         let trackConversion = false;
 
         // log whether visitor got the feature, and which variation and feature variable they got
         if (featureEnabled) {
-            var banner = '<div class="top-banner" style="background-color: blue;color: #fff; padding: 3px; font-weight: bold; text-align: center; font-size: 14px; height: 30px;">' + variableString + ' <a data-event="purchase-order" href="' + variableUrlString + '">' + variableCtaString + '</a></div>'
-            document.querySelector('#myNavbar').insertAdjacentHTML('afterbegin', banner);
+            var banner = '<div class="top-banner" style="background-color: blue;color: #fff; padding: 3px; font-weight: bold; text-align: center; font-size: 14px; height: 30px;">' + variableString + ' <a href="' + variableUrlString + '">' + variableCtaString + '</a></div>'
+            document.querySelector('header').insertAdjacentHTML('afterbegin', banner);
             console.log(`\nOptimizely Feature test activated. User ${user.getUserId()} saw flag variation: ${variationKey} and got the message: ${variableString}`);
             // fire a conversion event, depending on the prior coin flip
             if (trackConversion) {
@@ -72,7 +69,6 @@ if (fx_optimizely) {
     });
 } else {
     // handle instantiation error
-    console.warn('Optimizely FX Not instantiated');
 }
 
 tailwind.config = {
@@ -97,4 +93,3 @@ tailwind.config = {
         }
     }
 }
-
