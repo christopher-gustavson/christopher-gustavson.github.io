@@ -49,7 +49,7 @@ if (optimizelyClient) {
             console.log(' decision error: ', decision['reasons']);
         }
         // flip a coin to determine if a visitor will track an event
-        let trackConversion = false;
+        let trackConversions = true;
 
         // log whether visitor got the feature, and which variation and feature variable they got
         if (featureEnabled) {
@@ -57,9 +57,13 @@ if (optimizelyClient) {
             document.querySelector('header').insertAdjacentHTML('afterbegin', banner);
             console.log(`\nOptimizely Feature test activated. User ${user.getUserId()} saw flag variation: ${variationKey} and got the message: ${variableString}`);
             // fire a conversion event, depending on the prior coin flip
-            if (trackConversion) {
+            if (trackConversions) {
                 user.trackEvent('user_converted');
                 console.log(`\nOptimizely User ${user.getUserId()} converted.`)
+                document.querySelector('.top-banner a').onclick = function() {
+                    user.trackEvent('clicked_add_to_cart');
+                    console.log(`\nOptimizely User ${user.getUserId()} converted.`)
+                }
             };
         } else {
             console.log(`\nUser ${user.getUserId()} failed traffic allocation.`)
