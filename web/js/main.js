@@ -59,10 +59,10 @@ if (optimizelyClient) {
             // fire a conversion event, depending on the prior coin flip
             if (trackConversions) {
                 user.trackEvent('user_converted');
-                console.log(`\nOptimizely User ${user.getUserId()} converted.`)
+                console.log(`\nOptimizely User ${user.getUserId()} converted on user_converted event.`)
                 document.querySelector('.top-banner a').onclick = function() {
                     user.trackEvent('clicked_add_to_cart');
-                    console.log(`\nOptimizely User ${user.getUserId()} converted.`)
+                    console.log(`\nOptimizely User ${user.getUserId()} converted on clicked_add_to_cart event.`)
                 }
             };
         } else {
