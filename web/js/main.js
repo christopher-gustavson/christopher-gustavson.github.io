@@ -20,8 +20,13 @@ if (optimizelyClient) {
             throw new Error(reason);
         }
         // set user ID
-        let userId = getCookie('optimizelyEndUserId') || 'abc123';
-        //console.log('FX User ID: ', userId);
+        function createUserId() {
+            const userUUID = crypto.randomUUID();
+            window.localStorage.setItem('optimizely-fx-uuid', userUUID);
+            return userUUID;
+        }
+        let userId = window.localStorage.getItem('optimizely-fx-uuid') || createUserId();
+        console.log('FX User ID: ', userId);
 
         // add user attribute
         let attributes;
