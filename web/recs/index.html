@@ -10,24 +10,6 @@
     <!-- <script type="text/javascript" src='/web/js/main.js'></script> -->
     <link type="text/css" href="/web/css/main.css" rel="stylesheet">
     <!-- <script src="https://cdn.optimizely.com/js/20870890027.js"></script> -->
-    <script src="https://cloudflare.com"></script>
-    <script id="content-recs-script">
-        // Set client and delivery
-        _iaq = [
-            ['client', "5b65df0e0dbb49ae87c3b964c3608adc"],
-            ['delivery', 1915]
-        ];
-
-        // Include Content Analytics
-        !function(d,s){
-            var ia=d.createElement(s);
-            ia.async=1;
-            ia.id='content-recs-snippet';
-            ia.src='//s.usea01.idio.episerver.net/ia.js';
-            s=d.getElementById('content-recs-script');
-            s.parentNode.insertBefore(ia,s)
-        }(document,'script');
-    </script>
     <style>
         /* ---- Optimizely Content Recommendations: scoped supplements ---- */
         /* Robust 4-up responsive grid (fallback if column utilities were purged) */
@@ -268,6 +250,23 @@
             </div>
         </div>
     </footer>
+        <script id="content-recs-script">
+        // Set client and delivery
+        _iaq = [
+            ['client', "5b65df0e0dbb49ae87c3b964c3608adc"],
+            ['delivery', 1915]
+        ];
+
+        // Include Content Analytics
+        !function(d,s){
+            var ia=d.createElement(s);
+            ia.async=1;
+            ia.id='content-recs-snippet';
+            ia.src='//s.usea01.idio.episerver.net/ia.js';
+            s=d.getElementById('content-recs-script');
+            s.parentNode.insertBefore(ia,s)
+        }(document,'script');
+    </script>
 </body>
 
 </html>
