@@ -111,36 +111,42 @@
     <p class="eyebrow text-pale-sky">The more you know</p>
     <h2 class="my-0">Recommended for you</h2>
     </div>
-    <script class="idio-recommendations" type="text/x-mustache" data-api-key="1UN89QWXQQ8A4F4TTK08" data-rpp="5" data-filter="featured:true">
+    <script class="idio-recommendations" type="text/x-mustache" data-api-key="JPWVOFHV3AV3IY0LWZ08">
+    <div class="idio-recommendations-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 relative">
     {{#content}}
-    <div class="idio-recommendation">
-        {{#main_image_url}}
-            <a href="{{link_url}}"><img src="{{main_image_url}}?w=150&amp;h=150" class="image" /></a>
-        {{/main_image_url}}
-
-        <h3><a href="{{link_url}}">{{title}}</a></h3>
-        <p>
-            {{abstract}}
-            <a href="{{link_url}}">Read more...</a>
-        </p>
-
-        <div class="meta">
-            <ul class="topics">
-                {{#topics}}
-                <li>{{title}}</li>
-                {{/topics}}
-            </ul>
-
-            {{#source}}
-                <span class="source">{{title}}</span>
-            {{/source}}
-
-        {{#author}}
-            <span class="author">{{title}}</span>
-        {{/author}}
+    <div class="idio-recommendation article-list-item w-full h-full relative">
+    <a href="{{link_url}}" class="block w-full h-full no-underline">
+    <article class="@container/card on-white rounded-[2rem] before:rounded-[2rem]">
+    <div class="p-6 lg:p-12 on-white rounded-[2rem] w-full h-full border-none">
+    <div class="prose max-w-none gap-2 lg:gap-4">
+    {{#main_image_url}}
+    <img class="image w-full rounded-[20px]" src="{{main_image_url}}?w=620&h=430" alt="{{title}}">
+    {{/main_image_url}}
+    <div class="meta flex flex-wrap items-center justify-between gap-2 mb-[16px] mt-[16px]">
+    {{#source}}
+    <span class="source !text-[12px] text-pale-sky my-0">{{title}}</span>
+    {{/source}}
+    {{#author}}
+    <span class="author !text-[12px] text-pale-sky my-0">{{title}}</span>
+    {{/author}}
     </div>
+    <h3 class="my-0 mt-[16px]">{{title}}</h3>
+    <p class="my-0 mt-[8px]">
+    {{abstract}}
+    <span class="read-more link--arrow">Read more...</span>
+    </p>
+    <ul class="topics">
+    {{#topics}}
+    <li>{{title}}</li>
+    {{/topics}}
+    </ul>
+    </div>
+    </div>
+    </article>
+    </a>
     </div>
     {{/content}}
+    </div>
     </script>
     </section>
     <!-- Include the Content Recommendations loader once per page (use the exact loader snippet
@@ -245,14 +251,6 @@
         </div>
     </footer>
         <script id="content-recs-script">
-        var _ipc = {
-        complete: function(tag, statusCode) {
-        console.log('Success! Updating', tag);
-        },
-        error: function(tag, statusCode) {
-        console.log('There was an error:', statusCode);
-        }
-        }
         // Set client and delivery
         _iaq = [
             ['client', "5b65df0e0dbb49ae87c3b964c3608adc"],
@@ -261,12 +259,12 @@
 
         // Include Content Analytics
         !function(d,s){
-            var ia=d.createElement(s);
-            ia.async=1;
-            ia.id='content-recs-snippet';
-            ia.src='//s.usea01.idio.episerver.net/ia.js';
+            var ip=d.createElement(s);
+            ip.async=1;
+            ip.id='content-recs-snippet';
+            ip.src='//s.usea01.idio.episerver.net/ip.js';
             s=d.getElementById('content-recs-script');
-            s.parentNode.insertBefore(ia,s)
+            s.parentNode.insertBefore(ip,s)
         }(document,'script');
     </script>
 </body>
